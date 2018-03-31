@@ -10,17 +10,20 @@ import (
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2/google"
 
+	routes "github.com/Bigghead/Golang-Sentiments/routes"
 	vision "google.golang.org/api/vision/v1"
 )
 
 func main() {
-	readFile()
+	// readFile()
+
+	routes.InitRoutes()
 
 }
 
 func readFile() {
 
-	data, err := ioutil.ReadFile("Rottweiler-1.jpg")
+	data, err := ioutil.ReadFile("assets/images/Rottweiler-1.jpg")
 
 	enc := base64.StdEncoding.EncodeToString(data)
 	img := &vision.Image{Content: enc}
