@@ -8,7 +8,7 @@ import (
 )
 
 func InitRoutes() {
-	http.Handle("/", http.FileServer(http.Dir(("../client"))))
+	http.Handle("/", http.FileServer(http.Dir("./client")))
 	http.HandleFunc("/test", controllers.GetHome)
 	log.Fatal(http.ListenAndServe(":8000", nil))
 
