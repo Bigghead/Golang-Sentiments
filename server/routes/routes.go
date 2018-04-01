@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	controllers "github.com/Bigghead/Golang-Sentiments/controllers"
+	controllers "github.com/Bigghead/Golang-Sentiments/server/controllers"
 )
 
 func InitRoutes() {

@@ -19,7 +19,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
 
     function getImage() :void {
-        let ctx   = canvas.getContext('2d');
+        let ctx  = canvas.getContext('2d');
         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
         ctx.drawImage(vidPlayer, 0, 0, canvasWidth, canvasHeight);
         let data = canvas.toDataURL('image/jpeg')
