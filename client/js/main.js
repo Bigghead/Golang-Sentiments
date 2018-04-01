@@ -18,6 +18,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     function parseImage(data) {
         console.log(data);
+        fetch('/send', {
+            method: 'POST',
+            body: data
+        })
+            .then(function (res) { return res.json(); })
+            .then(function (res) { return console.log(res); })
+            .catch(function (err) { return console.log(err); });
     }
 });
 //# sourceMappingURL=main.js.map

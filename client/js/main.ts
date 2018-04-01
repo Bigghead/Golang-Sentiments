@@ -27,6 +27,13 @@ document.addEventListener( 'DOMContentLoaded', () => {
     }
 
     function parseImage(data :string) :void {
-        console.log( data);
+        console.log(data);
+         fetch('/send', {
+            method: 'POST',
+            body: data
+        } )
+            .then( res => res.json() )
+            .then( res => console.log(res) )
+            .catch( err => console.log(err) )
     }
 } )
