@@ -20,17 +20,22 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
     function getImage() :void {
         let ctx  = canvas.getContext('2d');
-        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-        ctx.drawImage(vidPlayer, 0, 0, canvasWidth, canvasHeight);
+        // ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+        ctx.drawImage(vidPlayer, 0, 0, canvas.width, canvas.height);
         let data = canvas.toDataURL('image/jpeg')
         parseImage(data);
     }
 
-    function parseImage(data :string) :void {
-        console.log(data);
+    function parseImage(image :string) :void {
+        // image = image.replace(/^data:image\/jpeg+;base64,/, "");
+        // image = image.replace(/ /g, '+');
+
          fetch('/send', {
             method: 'POST',
-            body: data
+            headers: {
+                'content-type': 'application/json'
+              },
+            body: JSON.stringify(  {image : "HELLO"}  )
         } )
             .then( res => res.json() )
             .then( res => console.log(res) )

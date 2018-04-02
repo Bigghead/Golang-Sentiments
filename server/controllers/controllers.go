@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"os"
+	"strings"
+
+	util "github.com/Bigghead/Golang-Sentiments/server/utilities"
 )
 
 func GetHome(w http.ResponseWriter, r *http.Request) {
@@ -16,20 +18,17 @@ func GetHome(w http.ResponseWriter, r *http.Request) {
 func ParsePost(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == "POST" {
-		// fmt.Println(r.Method)
-		// json.NewEncoder(w).Encode(("hello"))
 		data, err := ioutil.ReadAll(r.Body)
 		if err != nil {
 			fmt.Println(err)
-			os.Exit(1)
+			panic(err)
 		}
 		defer r.Body.Close()
 
-		jsonBody, err := json.Marshal(data)
-		if err != nil {
-			os.Exit(1)
-		}
+		// ===== split base64 string 'data:img'.... ===== //
+		b64data := string(data)[strings.IndexByte(string(data), ',')+1:]
 
-		fmt.Println(string(jsonBody))
+		// json.NewEncoder(w).Encode(b64data)
+		util.MakeImage(b64data)
 	}
 }

@@ -11,16 +11,20 @@ document.addEventListener('DOMContentLoaded', function () {
     captureBtn.addEventListener('click', getImage);
     function getImage() {
         var ctx = canvas.getContext('2d');
-        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-        ctx.drawImage(vidPlayer, 0, 0, canvasWidth, canvasHeight);
+        // ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+        ctx.drawImage(vidPlayer, 0, 0, canvas.width, canvas.height);
         var data = canvas.toDataURL('image/jpeg');
         parseImage(data);
     }
-    function parseImage(data) {
-        console.log(data);
+    function parseImage(image) {
+        // image = image.replace(/^data:image\/jpeg+;base64,/, "");
+        // image = image.replace(/ /g, '+');
         fetch('/send', {
             method: 'POST',
-            body: data
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({ image: "HELLO" })
         })
             .then(function (res) { return res.json(); })
             .then(function (res) { return console.log(res); })
