@@ -28,7 +28,16 @@ func ParsePost(w http.ResponseWriter, r *http.Request) {
 		// ===== split base64 string 'data:img'.... ===== //
 		b64data := string(data)[strings.IndexByte(string(data), ',')+1:]
 
-		// json.NewEncoder(w).Encode(b64data)
-		util.MakeImage(b64data)
+		imageFile, err := util.MakeImage(b64data)
+		if err != nil {
+			panic(err)
+		}
+
+		recognitions, err := util.ReadImage(imageFile)
+		if err != nil {
+			panic(err)
+		}
+
+		json.NewEncoder(w).Encode(string(recognitions))
 	}
 }

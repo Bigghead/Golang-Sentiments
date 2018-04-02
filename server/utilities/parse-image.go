@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"strings"
+	"strconv"
 	"time"
 
 	"golang.org/x/oauth2/google"
@@ -18,7 +18,9 @@ import (
 // MakeImage : make image file with current time as file name
 func MakeImage(image64 string) (string, error) {
 	current := time.Now().UnixNano()
-	fileName := string(current) + ".jpeg"
+
+	// ===== turn int64 to string ===== //
+	fileName := strconv.FormatInt(current, 10) + ".jpeg"
 
 	// ===== create file ===== //
 	newImage, err := os.Create(fileName)
@@ -29,9 +31,7 @@ func MakeImage(image64 string) (string, error) {
 	defer newImage.Close()
 
 	// ===== decode base64 string =====  //
-	b64data := image64[strings.IndexByte(image64, ',')+1:]
-	fmt.Println(b64data[:10])
-	dec, err := base64.StdEncoding.DecodeString(b64data)
+	dec, err := base64.StdEncoding.DecodeString(image64)
 	if err != nil {
 		panic(err)
 	}
@@ -41,6 +41,7 @@ func MakeImage(image64 string) (string, error) {
 	if err != nil {
 		panic(error)
 	}
+
 	// ===== make sure the file is saved ===== //
 	error = newImage.Sync()
 	if err != nil {
