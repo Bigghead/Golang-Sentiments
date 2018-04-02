@@ -25,8 +25,13 @@ func ParsePost(w http.ResponseWriter, r *http.Request) {
 		}
 		defer r.Body.Close()
 
+		type jsonImage struct{ Image string }
+		jsonImg := jsonImage{}
+		err = json.Unmarshal(data, &jsonImg)
+		image := jsonImg.Image
+
 		// ===== split base64 string 'data:img'.... ===== //
-		b64data := string(data)[strings.IndexByte(string(data), ',')+1:]
+		b64data := string(image)[strings.IndexByte(string(image), ',')+1:]
 
 		imageFile, err := util.MakeImage(b64data)
 		if err != nil {

@@ -35,7 +35,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
             headers: {
                 'content-type': 'application/json'
               },
-            body: JSON.stringify(  {image : "HELLO"}  )
+            body: JSON.stringify(  { image }  )
         } )
             .then( res => res.json() )
             .then( res => console.log(res) )
