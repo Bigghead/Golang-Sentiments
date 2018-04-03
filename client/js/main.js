@@ -28,7 +28,16 @@ document.addEventListener('DOMContentLoaded', function () {
             body: JSON.stringify({ image: image })
         })
             .then(function (res) { return res.json(); })
-            .then(function (res) { return console.log(res); })
+            .then(function (res) {
+            console.log(JSON.parse(res).map(function (r) {
+                return {
+                    "joyLikelihood": r.joyLikelihood,
+                    "sorrowLikelihood": r.sorrowLikelihood,
+                    "angerLikelihood": r.angerLikelihood,
+                    "surpriseLikelihood": r.surpriseLikelihood
+                };
+            }));
+        })
             .catch(function (err) { return console.log(err); });
     }
 });

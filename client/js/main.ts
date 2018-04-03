@@ -40,7 +40,16 @@ document.addEventListener( 'DOMContentLoaded', () => {
             body: JSON.stringify(  { image }  )
         } )
             .then( res => res.json() )
-            .then( res => console.log(res) )
+            .then( res => {
+                console.log( JSON.parse(res).map( r => {
+                    return {
+                        "joyLikelihood": r.joyLikelihood,
+                        "sorrowLikelihood": r.sorrowLikelihood,
+                        "angerLikelihood": r.angerLikelihood,
+                        "surpriseLikelihood": r.surpriseLikelihood
+                    }
+                } ) )
+            } )
             .catch( err => console.log(err) )
     }
 } )
