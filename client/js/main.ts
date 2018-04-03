@@ -18,6 +18,8 @@ document.addEventListener( 'DOMContentLoaded', () => {
     captureBtn.addEventListener( 'click', getImage );
 
 
+    chart.buildChart()
+
     function getImage() :void {
         let ctx  = canvas.getContext('2d');
         // ctx.fillRect(0, 0, canvasWidth, canvasHeight);

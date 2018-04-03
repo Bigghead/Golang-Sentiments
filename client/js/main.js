@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var canvas = document.getElementById('canvas');
     // ===== Listeners ===== //
     captureBtn.addEventListener('click', getImage);
+    chart.buildChart();
     function getImage() {
         var ctx = canvas.getContext('2d');
         // ctx.fillRect(0, 0, canvasWidth, canvasHeight);

@@ -60,7 +60,7 @@ func ReadImage(filePath string) ([]byte, error) {
 	img := &vision.Image{Content: enc}
 
 	feature := &vision.Feature{
-		Type:       "LABEL_DETECTION",
+		Type:       "FACE_DETECTION",
 		MaxResults: 10,
 	}
 
@@ -87,7 +87,7 @@ func ReadImage(filePath string) ([]byte, error) {
 		log.Fatal(err)
 	}
 
-	body, err := json.Marshal(res.Responses[0].LabelAnnotations)
+	body, err := json.Marshal(res.Responses[0].FaceAnnotations)
 
 	return body, err
 }
