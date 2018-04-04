@@ -2,8 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
-	"io/ioutil"
 	"net/http"
 	"strings"
 
@@ -18,20 +16,22 @@ func GetHome(w http.ResponseWriter, r *http.Request) {
 func ParsePost(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == "POST" {
-		data, err := ioutil.ReadAll(r.Body)
-		if err != nil {
-			fmt.Println(err)
-			panic(err)
-		}
-		defer r.Body.Close()
+		// ===== Better way to parse json??? ==== //
+		// err = json.NewDecoder(r.Body).Decode(jsonImg)
 
 		type jsonImage struct{ Image string }
-		jsonImg := jsonImage{}
-		err = json.Unmarshal(data, &jsonImg)
-		image := jsonImg.Image
+		img2 := jsonImage{}
+
+		err := json.NewDecoder(r.Body).Decode(&img2)
+		if err != nil {
+			panic(err)
+		}
+		imageString := img2.Image
+
+		defer r.Body.Close()
 
 		// ===== split base64 string 'data:img'.... ===== //
-		b64data := string(image)[strings.IndexByte(string(image), ',')+1:]
+		b64data := string(imageString)[strings.IndexByte(string(imageString), ',')+1:]
 
 		imageFile, err := util.MakeImage(b64data)
 		if err != nil {

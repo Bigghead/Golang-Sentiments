@@ -14,8 +14,8 @@ const emotionMap = {
 const chart = ( () => {
 
     const buildChart = () => {
-      const ctx = chartEl.getContext('2d');
-      const newChart = new Chart( ctx, {
+      const ctx: CanvasRenderingContext2D = chartEl.getContext('2d');
+      const newChart: any = new Chart( ctx, {
           type: 'line',
           data: {
             labels: ['joyLikelihood','sorrowLikelihood', 'angerLikelihood','surpriseLikelihood'],

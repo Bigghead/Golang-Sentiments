@@ -4,15 +4,14 @@ document.addEventListener('DOMContentLoaded', function () {
     var canvasWidth = 1180;
     var canvasHeight = (canvasWidth / ratio);
     // ===== DOM STUFFS ===== //
-    var vidPlayer = document.getElementById('video-player');
     var captureBtn = document.getElementById('capture-button');
+    var vidPlayer = document.getElementById('video-player');
     var canvas = document.getElementById('canvas');
     // ===== Listeners ===== //
     captureBtn.addEventListener('click', getImage);
     chart.buildChart();
     function getImage() {
         var ctx = canvas.getContext('2d');
-        // ctx.fillRect(0, 0, canvasWidth, canvasHeight);
         ctx.drawImage(vidPlayer, 0, 0, canvas.width, canvas.height);
         var data = canvas.toDataURL('image/jpeg');
         parseImage(data);
@@ -27,16 +26,23 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify({ image: image })
         })
+            .then(function (res) {
+            if (!res.ok) {
+                throw new Error(res.statusText);
+            }
+            return res;
+        })
             .then(function (res) { return res.json(); })
             .then(function (res) {
-            console.log(JSON.parse(res).map(function (r) {
+            var mappedRes = JSON.parse(res).map(function (r) {
                 return {
                     "joyLikelihood": r.joyLikelihood,
                     "sorrowLikelihood": r.sorrowLikelihood,
                     "angerLikelihood": r.angerLikelihood,
                     "surpriseLikelihood": r.surpriseLikelihood
                 };
-            }));
+            });
+            console.log(res);
         })
             .catch(function (err) { return console.log(err); });
     }
