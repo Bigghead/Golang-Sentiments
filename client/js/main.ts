@@ -4,7 +4,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
     // ==== GLOBALS ===== //
     const ratio : number = 1.6;
     const canvasWidth :number = 1180;
-    const canvasHeight:number = (canvasWidth/ratio);
+    const canvasHeight:number = ( canvasWidth/ratio );
 
     interface Recognition {
         joyLikelihood     : string,
@@ -15,9 +15,9 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
 
     // ===== DOM STUFFS ===== //
-    const captureBtn = document.getElementById('capture-button');
-    const vidPlayer  = <HTMLVideoElement>document.getElementById('video-player');
-    const canvas     = <HTMLCanvasElement>document.getElementById('canvas');
+    const captureBtn = document.getElementById( 'capture-button' );
+    const vidPlayer  = <HTMLVideoElement>document.getElementById( 'video-player' );
+    const canvas     = <HTMLCanvasElement>document.getElementById( 'canvas' );
     
     
     // ===== Listeners ===== //
@@ -27,14 +27,16 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
     chart.buildChart()
 
-    function getImage() :void {
-        let ctx: CanvasRenderingContext2D  = canvas.getContext('2d');
-        ctx.drawImage(vidPlayer, 0, 0, canvas.width, canvas.height);
-        let data: string = canvas.toDataURL('image/jpeg')
-        parseImage(data);
-    }
 
-    function parseImage(image :string) :void {
+    function getImage() :void {
+        let ctx: CanvasRenderingContext2D  = canvas.getContext( '2d' );
+        ctx.drawImage( vidPlayer, 0, 0, canvas.width, canvas.height );
+        let data: string = canvas.toDataURL( 'image/jpeg' )
+        parseImage( data  );
+    }
+    
+
+    function parseImage(image :string ) :void {
         // image = image.replace(/^data:image\/jpeg+;base64,/, "");
         // image = image.replace(/ /g, '+');
 

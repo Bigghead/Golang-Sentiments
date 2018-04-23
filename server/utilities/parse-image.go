@@ -76,7 +76,6 @@ func ReadImage(filePath string) ([]byte, error) {
 	ctx := context.Background()
 
 	client, err := google.DefaultClient(ctx, vision.CloudPlatformScope)
-
 	svc, err := vision.New(client)
 	if err != nil {
 		log.Fatal(err)
@@ -90,4 +89,13 @@ func ReadImage(filePath string) ([]byte, error) {
 	body, err := json.Marshal(res.Responses[0].FaceAnnotations)
 
 	return body, err
+}
+
+//DeleteImage : delete image file
+func DeleteImage(fileName string) error {
+	err := os.Remove(fileName)
+	if err != nil {
+		return err
+	}
+	return nil
 }
