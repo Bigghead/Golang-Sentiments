@@ -11,43 +11,54 @@ const emotionMap = {
     'VERY_LIKELY'  : 5
 }
 
+
 const chart = ( () => {
 
-    const buildChart = () => {
-      const ctx: CanvasRenderingContext2D = chartEl.getContext('2d');
-      const newChart: any = new Chart( ctx, {
-          type: 'line',
-          data: {
-            labels: ['joyLikelihood','sorrowLikelihood', 'angerLikelihood','surpriseLikelihood'],
-            datasets: [{
-                label: '# of Votes',
-                data: ['joyLikelihood','sorrowLikelihood', 'angerLikelihood','surpriseLikelihood'],
-            }]
-          },
-          options: {
+    const buildChart = ( recObj ) => {
+
+        const datasets = [];
+        const labels   = [];
+        
+        for( let key in recObj ) {
+            datasets.push( { 
+                label: key,
+                data: [ emotionMap[ recObj[key] ] ]
+            } )
+        }
+
+        labels.push( new Date().getSeconds() )
+        
+        const ctx: CanvasRenderingContext2D = chartEl.getContext('2d');
+        const newChart: any = new Chart( ctx, {
+            type: 'bar',
+            data: {
+                labels,
+                datasets
+            },
+            options: {
             responsive:true,
             maintainAspectRatio:false,
             scales: {
                 yAxes: [{
-                  ticks: {
-                      beginAtZero: true
-                  },
-                  scaleLabel: {
+                    ticks: {
+                        beginAtZero: true
+                    },
+                    scaleLabel: {
                     display: true,
                     labelString: 'Emotions',
                     fontSize: 20
-                  }
-                }],
-                xAxes: [{
-                    scaleLabel: {
-                      display: true,
-                      labelString: 'Time Stamp',
-                      fontSize: 20
                     }
-                  }]
-              } 
+                }],
+                xAxes: [ {
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Time Stamp',
+                        fontSize: 20
+                    }
+                } ]
+            } 
         }
-      })
+    } )
     }
 
     return {

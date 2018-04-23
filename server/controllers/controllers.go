@@ -43,10 +43,10 @@ func ParsePost(w http.ResponseWriter, r *http.Request) {
 			panic(err)
 		}
 
-		err = util.DeleteImage(imageFile)
-		if err != nil {
-			panic(err)
-		}
+		// err = util.DeleteImage(imageFile)
+		// if err != nil {
+		// 	panic(err)
+		// }
 
 		json.NewEncoder(w).Encode(string(recognitions))
 	}

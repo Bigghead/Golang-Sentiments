@@ -86,6 +86,11 @@ func ReadImage(filePath string) ([]byte, error) {
 		log.Fatal(err)
 	}
 
+	err = DeleteImage(filePath)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	body, err := json.Marshal(res.Responses[0].FaceAnnotations)
 
 	return body, err

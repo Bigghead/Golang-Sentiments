@@ -8,16 +8,22 @@ var emotionMap = {
     'VERY_LIKELY': 5
 };
 var chart = (function () {
-    var buildChart = function () {
+    var buildChart = function (recObj) {
+        var datasets = [];
+        var labels = [];
+        for (var key in recObj) {
+            datasets.push({
+                label: key,
+                data: [emotionMap[recObj[key]]]
+            });
+        }
+        labels.push(new Date().getSeconds());
         var ctx = chartEl.getContext('2d');
         var newChart = new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
-                labels: ['joyLikelihood', 'sorrowLikelihood', 'angerLikelihood', 'surpriseLikelihood'],
-                datasets: [{
-                        label: '# of Votes',
-                        data: ['joyLikelihood', 'sorrowLikelihood', 'angerLikelihood', 'surpriseLikelihood'],
-                    }]
+                labels: labels,
+                datasets: datasets
             },
             options: {
                 responsive: true,

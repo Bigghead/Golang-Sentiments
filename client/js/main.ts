@@ -25,7 +25,6 @@ document.addEventListener( 'DOMContentLoaded', () => {
     captureBtn.addEventListener( 'click', getImage );
 
 
-    chart.buildChart()
 
 
     function getImage() :void {
@@ -55,16 +54,17 @@ document.addEventListener( 'DOMContentLoaded', () => {
             } )
             .then( res => res.json() )
             .then( res => {
-
                 const mappedRes : Array<Recognition> = JSON.parse(res).map( r => {
                     return {
-                        "joyLikelihood"     : r.joyLikelihood,
-                        "sorrowLikelihood"  : r.sorrowLikelihood,
-                        "angerLikelihood"   : r.angerLikelihood,
-                        "surpriseLikelihood": r.surpriseLikelihood
+                        "Joy"     : r.joyLikelihood,
+                        "Sorrow"  : r.sorrowLikelihood,
+                        "Anger"   : r.angerLikelihood,
+                        "Surprise": r.surpriseLikelihood
                     }
                 } );
-                console.log( res );
+                console.log( mappedRes );
+                chart.buildChart( mappedRes[0] )
+                
 
             } )
             .catch( err => console.log(err) )

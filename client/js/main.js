@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var canvas = document.getElementById('canvas');
     // ===== Listeners ===== //
     captureBtn.addEventListener('click', getImage);
-    chart.buildChart();
     function getImage() {
         var ctx = canvas.getContext('2d');
         ctx.drawImage(vidPlayer, 0, 0, canvas.width, canvas.height);
@@ -36,13 +35,14 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(function (res) {
             var mappedRes = JSON.parse(res).map(function (r) {
                 return {
-                    "joyLikelihood": r.joyLikelihood,
-                    "sorrowLikelihood": r.sorrowLikelihood,
-                    "angerLikelihood": r.angerLikelihood,
-                    "surpriseLikelihood": r.surpriseLikelihood
+                    "Joy": r.joyLikelihood,
+                    "Sorrow": r.sorrowLikelihood,
+                    "Anger": r.angerLikelihood,
+                    "Surprise": r.surpriseLikelihood
                 };
             });
-            console.log(res);
+            console.log(mappedRes);
+            chart.buildChart(mappedRes[0]);
         })
             .catch(function (err) { return console.log(err); });
     }
